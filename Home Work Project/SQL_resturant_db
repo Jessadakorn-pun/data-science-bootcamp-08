@@ -1,0 +1,463 @@
+.open restaurant.db
+create table if not exists member_customer (
+  customer_id int ,
+  customer_name text,
+  customer_surname text,
+  email text,
+  age text,
+  register_date text,
+  member_expire_date text,
+  member_point float,
+  address text,
+  gender text
+);
+
+create table if not exists menu (
+  menu_id int ,
+  menu_name text not null,
+  price float,
+  ingredient_set_id int
+
+);
+
+create table if not exists ingredient_set (
+  ingredient_set_id int ,
+  quantity int,
+  updating_stock_date text,
+  laed_time flaot,
+  setup_cost flaot,
+  cost_per_unit flaot,
+  avg_holding_cost flaot,
+  exprie_date text
+);
+
+create table if not exists invoice (
+  invoice_id int ,
+  customer_id int,
+  invoice_date text,
+  payment_method text,
+  order_id int
+);
+
+create table if not exists orders (
+  order_id int  ,
+  recived_name text,
+  chef_name test
+  
+);
+
+create table if not exists feedback (
+  feedback_id int,
+  customer_id int,
+  customer_comment text,
+  invoice_id int
+);
+
+create table if not exists order_menu (
+  menu_id int not null,
+  order_id int not null
+);
+
+/*
+insert into menu values
+  (1, 'Margherita', 9.99, 1),
+  (2, 'Pepperoni', 11.99, 2),
+  (3, 'Vegetarian', 10.99, 3),
+  (4, 'Hawaiian', 12.99, 4),
+  (5, 'Meat Lovers', 13.99, 5),
+  (6, 'BBQ Chicken', 11.99, 6),
+  (7, 'Mushroom Delight', 10.99, 7),
+  (8, 'Supreme', 12.99, 8),
+  (9, 'Four Cheese', 11.99, 9),
+  (10, 'Buffalo Chicken', 12.99, 10),
+  (11, 'Pesto Delight', 11.99, 11),
+  (12, 'Veggie Supreme', 10.99, 12),
+  (13, 'Spinach & Feta', 11.99, 13),
+  (14, 'Taco Pizza', 12.99, 14),
+  (15, 'Chicken Alfredo', 11.99, 15),
+  (16, 'Bacon Lovers', 12.99, 16),
+  (17, 'Barbecue Bacon', 11.99, 17),
+  (18, 'Seafood Sensation', 13.99, 18),
+  (19, 'Pineapple Paradise', 10.99, 19),
+  (20, 'Greek Pizza', 12.99, 20);
+
+insert into ingredient_set values
+  (1, 50, '2023-07-10', 2, 10.0, 1.0, 0.5, '2023-12-31'),
+  (2, 100, '2023-07-10', 3, 12.0, 1.5, 0.6, '2023-12-31'),
+  (3, 75, '2023-07-10', 2, 8.0, 1.2, 0.4, '2023-12-31'),
+  (4, 30, '2023-07-10', 4, 15.0, 2.0, 0.8, '2023-12-31'),
+  (5, 60, '2023-07-10', 3, 10.0, 1.5, 0.6, '2023-12-31'),
+  (6, 40, '2023-07-10', 2, 8.0, 1.0, 0.5, '2023-12-31'),
+  (7, 80, '2023-07-10', 3, 12.0, 1.2, 0.6, '2023-12-31'),
+  (8, 55, '2023-07-10', 2, 10.0, 1.0, 0.4, '2023-12-31'),
+  (9, 90, '2023-07-10', 4, 15.0, 1.5, 0.8, '2023-12-31'),
+  (10, 70, '2023-07-10', 3, 12.0, 1.2, 0.6, '2023-12-31'),
+  (11, 35, '2023-07-10', 2, 8.0, 1.0, 0.5, '2023-12-31'),
+  (12, 65, '2023-07-10', 3, 10.0, 1.5, 0.6, '2023-12-31'),
+  (13, 45, '2023-07-10', 2, 8.0, 1.0, 0.4, '2023-12-31'),
+  (14, 85, '2023-07-10', 4, 15.0, 1.2, 0.8, '2023-12-31'),
+  (15, 95, '2023-07-10', 3, 12.0, 1.5, 0.6, '2023-12-31'),
+  (16, 25, '2023-07-10', 2, 8.0, 1.0, 0.5, '2023-12-31'),
+  (17, 75, '2023-07-10', 3, 10.0, 1.2, 0.4, '2023-12-31'),
+  (18, 50, '2023-07-10', 2, 8.0, 1.0, 0.5, '2023-12-31'),
+  (19, 80, '2023-07-10', 4, 15.0, 1.5, 0.6, '2023-12-31'),
+  (20, 60, '2023-07-10', 3, 12.0, 1.2, 0.4, '2023-12-31');
+
+insert into member_customer values
+  (1, 'John', 'Doe', 'john.doe@example.com', 30, '2022-01-15', '2023-01-15', 100, '123 Main St, Anytown', 'Male'),
+  (2, 'Jane', 'Smith', 'jane.smith@example.com', 28, '2022-02-20', '2023-02-20', 75, '456 Elm St, Anytown', 'Female'),
+  (3, 'Michael', 'Johnson', 'michael.johnson@example.com', 35, '2022-03-10', '2023-03-10', 120, '789 Oak St, Anytown', 'Male'),
+  (4, 'Emily', 'Williams', 'emily.williams@example.com', 32, '2022-04-05', '2023-04-05', 90, '321 Pine St, Anytown', 'Female'),
+  (5, 'David', 'Brown', 'david.brown@example.com', 27, '2022-05-12', '2023-05-12', 80, '654 Cedar St, Anytown', 'Male'),
+  (6, 'Olivia', 'Jones', 'olivia.jones@example.com', 29, '2022-06-18', '2023-06-18', 110, '987 Maple St, Anytown', 'Female'),
+  (7, 'Daniel', 'Miller', 'daniel.miller@example.com', 31, '2022-07-22', '2023-07-22', 95, '159 Birch St, Anytown', 'Male'),
+  (8, 'Sophia', 'Wilson', 'sophia.wilson@example.com', 33, '2022-08-09', '2023-08-09', 105, '753 Walnut St, Anytown', 'Female'),
+  (9, 'Matthew', 'Taylor', 'matthew.taylor@example.com', 26, '2022-09-14', '2023-09-14', 85, '246 Spruce St, Anytown', 'Male'),
+  (10, 'Ava', 'Anderson', 'ava.anderson@example.com', 30, '2022-10-28', '2023-10-28', 70, '579 Oak St, Anytown', 'Female'),
+  (11, 'James', 'Thomas', 'james.thomas@example.com', 32, '2022-11-01', '2023-11-01', 95, '753 Elm St, Anytown', 'Male'),
+  (12, 'Isabella', 'Martin', 'isabella.martin@example.com', 29, '2022-12-08', '2023-12-08', 120, '246 Pine St, Anytown', 'Female'),
+  (13, 'Benjamin', 'Clark', 'benjamin.clark@example.com', 31, '2023-01-17', '2024-01-17', 110, '987 Cedar St, Anytown', 'Male'),
+  (14, 'Mia', 'Rodriguez', 'mia.rodriguez@example.com', 28, '2023-02-22', '2024-02-22', 80, '159 Maple St, Anytown', 'Female'),
+  (15, 'Alexander', 'Lee', 'alexander.lee@example.com', 27, '2023-03-12', '2024-03-12', 100, '753 Birch St, Anytown', 'Male'),
+  (16, 'Evelyn', 'Garcia', 'evelyn.garcia@example.com', 33, '2023-04-07', '2024-04-07', 90, '246 Walnut St, Anytown', 'Female'),
+  (17, 'William', 'Hall', 'william.hall@example.com', 30, '2023-05-15', '2024-05-15', 95, '579 Spruce St, Anytown', 'Male'),
+  (18, 'Sofia', 'Young', 'sofia.young@example.com', 29, '2023-06-20', '2024-06-20', 115, '753 Oak St, Anytown', 'Female'),
+  (19, 'Joseph', 'Lopez', 'joseph.lopez@example.com', 31, '2023-07-24', '2024-07-24', 105, '987 Pine St, Anytown', 'Male'),
+  (20, 'Charlotte', 'Harris', 'charlotte.harris@example.com', 28, '2023-08-11', '2024-08-11', 75, '159 Cedar St, Anytown', 'Female'),
+  (21, 'Henry', 'Clarkson', 'henry.clarkson@example.com', 25, '2023-09-16', '2024-09-16', 80, '246 Maple St, Anytown', 'Male'),
+  (22, 'Chloe', 'Rivera', 'chloe.rivera@example.com', 33, '2023-10-31', '2024-10-31', 100, '579 Birch St, Anytown', 'Female'),
+  (23, 'Andrew', 'Wright', 'andrew.wright@example.com', 29, '2023-11-03', '2024-11-03', 95, '753 Walnut St, Anytown', 'Male'),
+  (24, 'Zoe', 'Gomez', 'zoe.gomez@example.com', 27, '2023-12-12', '2024-12-12', 110, '987 Spruce St, Anytown', 'Female'),
+  (25, 'Daniel', 'Parker', 'daniel.parker@example.com', 32, '2024-01-19', '2025-01-19', 90, '159 Oak St, Anytown', 'Male'),
+  (26, 'Grace', 'Turner', 'grace.turner@example.com', 30, '2024-02-24', '2025-02-24', 120, '246 Pine St, Anytown', 'Female'),
+  (27, 'Ryan', 'Collins', 'ryan.collins@example.com', 28, '2024-03-15', '2025-03-15', 105, '579 Cedar St, Anytown', 'Male');
+
+insert into feedback values
+  (1, 15, 'Great service and delicious food!', 10),
+  (2, 7, 'The pizza was cold and the delivery took too long.', 25),
+  (3, 18, 'Amazing flavors! Will order again.', 3),
+  (4, 2, 'The crust was too thin for my liking.', 16),
+  (5, 11, 'Excellent customer service. Highly recommend!', 30),
+  (6, 21, 'The toppings were fresh and tasty.', 19),
+  (7, 5, 'Pizza arrived late, but the driver was apologetic.', 8),
+  (8, 28, 'The cheese was melted to perfection.', 14),
+  (9, 10, 'The order was incorrect. Disappointed.', 7),
+  (10, 1, 'Best pizza in town!', 22);
+
+insert into invoice values
+  (1, 15, '2023-01-01', 'Credit Card', 5),
+  (2, 5, '2023-01-02', 'Cash', 14),
+  (3, 20, '2023-01-03', 'Credit Card', 9),
+  (4, 18, '2023-01-04', 'Cash', 2),
+  (5, 7, '2023-01-05', 'Credit Card', 16),
+  (6, 10, '2023-01-06', 'Cash', 20),
+  (7, 4, '2023-01-07', 'Credit Card', 12),
+  (8, 15, '2023-01-08', 'Cash', 25),
+  (9, 8, '2023-01-09', 'Credit Card', 7),
+  (10, 2, '2023-01-10', 'Cash', 22),
+  (11, 25, '2023-01-11', 'Credit Card', 6),
+  (12, 3, '2023-01-12', 'Cash', 19),
+  (13, 28, '2023-01-13', 'Credit Card', 4),
+  (14, 6, '2023-01-14', 'Cash', 13),
+  (15, 22, '2023-01-15', 'Credit Card', 11),
+  (16, 9, '2023-01-16', 'Cash', 24),
+  (17, 1, '2023-01-17', 'Credit Card', 8),
+  (18, 19, '2023-01-18', 'Cash', 1),
+  (19, 13, '2023-01-19', 'Credit Card', 23),
+  (20, 26, '2023-01-20', 'Cash', 18),
+  (21, 11, '2023-01-21', 'Credit Card', 15),
+  (22, 17, '2023-01-22', 'Cash', 27),
+  (23, 24, '2023-01-23', 'Credit Card', 3),
+  (24, 16, '2023-01-24', 'Cash', 17),
+  (25, 23, '2023-01-25', 'Credit Card', 10),
+  (26, 14, '2023-01-26', 'Cash', 21),
+  (27, 27, '2023-01-27', 'Credit Card', 28),
+  (28, 21, '2023-01-28', 'Cash', 29),
+  (29, 0, '2023-01-29', 'Credit Card', 26),
+  (30, 0, '2023-01-30', 'Cash', 30),
+  (31, 0, '2023-01-31', 'Credit Card', 31),
+  (32, 0, '2023-02-01', 'Cash', 32),
+  (33, 0, '2023-02-02', 'Credit Card', 33),
+  (34, 0, '2023-02-03', 'Cash', 34),
+  (35, 0, '2023-02-04', 'Credit Card', 35),
+  (36, 0, '2023-02-05', 'Cash', 36),
+  (37, 0, '2023-02-06', 'Credit Card', 37),
+  (38, 0, '2023-02-07', 'Cash', 38),
+  (39, 0, '2023-02-08', 'Credit Card', 39),
+  (40, 0, '2023-02-09', 'Cash', 40);
+
+insert into orders values
+(1, 'John', 'Daniel'),
+  (2, 'Matthew', 'Emily'),
+  (3, 'Sophia', 'Daniel'),
+  (4, 'Olivia', 'Emily'),
+  (5, 'John', 'Daniel'),
+  (6, 'Matthew', 'Emily'),
+  (7, 'Sophia', 'Daniel'),
+  (8, 'Olivia', 'Emily'),
+  (9, 'John', 'Daniel'),
+  (10, 'Matthew', 'Emily'),
+  (11, 'Sophia', 'Daniel'),
+  (12, 'Olivia', 'Emily'),
+  (13, 'John', 'Daniel'),
+  (14, 'Matthew', 'Emily'),
+  (15, 'Sophia', 'Daniel'),
+  (16, 'Olivia', 'Emily'),
+  (17, 'John', 'Daniel'),
+  (18, 'Matthew', 'Emily'),
+  (19, 'Sophia', 'Daniel'),
+  (20, 'Olivia', 'Emily'),
+  (21, 'John', 'Daniel'),
+  (22, 'Matthew', 'Emily'),
+  (23, 'Sophia', 'Daniel'),
+  (24, 'Olivia', 'Emily'),
+  (25, 'John', 'Daniel'),
+  (26, 'Matthew', 'Emily'),
+  (27, 'Sophia', 'Daniel'),
+  (28, 'Olivia', 'Emily'),
+  (29, 'John', 'Daniel'),
+  (30, 'Matthew', 'Emily'),
+  (31, 'Sophia', 'Daniel'),
+  (32, 'Olivia', 'Emily'),
+  (33, 'John', 'Daniel'),
+  (34, 'Matthew', 'Emily'),
+  (35, 'Sophia', 'Daniel'),
+  (36, 'Olivia', 'Emily'),
+  (37, 'John', 'Daniel'),
+  (38, 'Matthew', 'Emily'),
+  (39, 'Sophia', 'Daniel'),
+  (40, 'Olivia', 'Emily');
+
+insert into order_menu values
+  (1, 5),
+  (2, 3),
+  (3, 9),
+  (4, 2),
+  (5, 8),
+  (6, 7),
+  (7, 12),
+  (8, 20),
+  (9, 10),
+  (10, 13),
+  (11, 4),
+  (12, 16),
+  (13, 15),
+  (14, 1),
+  (15, 6),
+  (16, 14),
+  (17, 11),
+  (18, 19),
+  (19, 17),
+  (20, 18),
+  (1, 22),
+  (2, 30),
+  (3, 25),
+  (4, 24),
+  (5, 28),
+  (6, 36),
+  (7, 39),
+  (8, 31),
+  (9, 33),
+  (10, 26),
+  (11, 40),
+  (12, 29),
+  (13, 34),
+  (14, 37),
+  (15, 38),
+  (16, 21),
+  (17, 32),
+  (18, 23),
+  (19, 27),
+  (20, 35),
+  (1, 4),
+  (2, 7),
+  (3, 14),
+  (4, 16),
+  (5, 1),
+  (6, 13),
+  (7, 5),
+  (8, 12),
+  (9, 10),
+  (10, 15),
+  (11, 17),
+  (12, 20),
+  (13, 19),
+  (14, 18),
+  (15, 3),
+  (16, 6),
+  (17, 2),
+  (18, 9),
+  (19, 11),
+  (20, 8);
+*/
+.mode column
+
+
+----------
+/*select 
+  A.customer_id, 
+  A.customer_name, 
+  B.customer_comment, 
+  B.invoice_id
+from
+  member_customer as  A,
+  feedback as B
+where
+ A.customer_id = B.customer_id;
+*/
+---------
+/*select
+  A.customer_id,
+  B.invoice_date,
+  B.payment_method,
+  E.menu_name
+  
+from
+  member_customer A,
+  invoice B,
+  orders C,
+  order_menu D,
+  menu E
+
+where
+  A.customer_id = B.customer_id and
+  B.order_id = C.order_id and
+  C.order_id = D.order_id and
+  D.menu_id = E.menu_id;
+*/
+-------
+
+
+------  restaraunt profit by menu-----
+create view if not exists total_rcp as
+  with iom as (
+    select * 
+    from 
+      invoice A,
+      orders B,
+      order_menu C,
+      menu D
+    where
+      A.order_id = B.order_id and
+      B.order_id = C.order_id and
+      C.menu_id = D.menu_id
+    
+  ), cost as (select * from ingredient_set)
+    
+  
+  
+  select 
+    iom.menu_name,
+    count(*),
+    iom.price,
+    count(*) * iom.price as revenul,
+    (cost.cost_per_unit) * count(*) as total_cost,
+    count(*) * iom.price - ((cost.cost_per_unit) * count(*)) as profit
+  from 
+    iom, cost
+  where
+    iom.ingredient_set_id = cost.ingredient_set_id
+  group by iom.menu_name;
+
+
+---------- toal revenue cost and profit -----
+
+select 
+  sum(revenul) as total_revenue,
+  sum(total_cost) as total_cost,
+  sum(profit) as total_profit
+from
+  total_rcp;
+
+---------- month id ---------
+create view if not exists month_id as
+  select
+  invoice_id,
+    case 
+      when customer_id = 0 then "Non-member"
+      else "memeber"
+    end as clean_member,
+    strftime("%Y-%m", invoice_date) as mont_id
+    
+  from
+    invoice  ; 
+
+
+------- profit_per_month ------
+
+with iom as (
+    select * 
+    from 
+      invoice A,
+      orders B,
+      order_menu C,
+      menu D,
+      ingredient_set E
+    where
+      A.order_id = B.order_id and
+      B.order_id = C.order_id and
+      C.menu_id = D.menu_id and
+      E.ingredient_set_id = D.ingredient_set_id
+    )
+select
+  mont_id,
+  count(*),
+  iom.price,
+  count(*) * iom.price as revenul,
+  (iom.cost_per_unit) * count(*) as total_cost,
+  count(*) * iom.price - ((iom.cost_per_unit) * count(*)) as profit
+  
+from
+  iom,
+  month_id
+where
+  iom.invoice_id = month_id.invoice_id
+group by mont_id ;
+
+  
+--------- profit by member -------
+with iom as (
+    select * 
+    from 
+      invoice A,
+      orders B,
+      order_menu C,
+      menu D,
+      ingredient_set E
+    where
+      A.order_id = B.order_id and
+      B.order_id = C.order_id and
+      C.menu_id = D.menu_id and
+      E.ingredient_set_id = D.ingredient_set_id
+    )
+select
+  clean_member,
+  count(*),
+  iom.price,
+  count(*) * iom.price as revenul,
+  (iom.cost_per_unit) * count(*) as total_cost,
+  count(*) * iom.price - ((iom.cost_per_unit) * count(*)) as profit
+
+from
+  iom,
+  month_id
+where
+  iom.invoice_id = month_id.invoice_id
+group by clean_member ;
+
+----- check worker (chef) -----
+select
+  A.chef_name,
+  count(*)
+from
+  orders as A,
+  order_menu as B,
+  menu as C
+where 
+  A.order_id = B.order_id and
+  B.menu_id = C.menu_id
+group by chef_name
+
+  
+
+ 
