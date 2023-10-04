@@ -17,4 +17,7 @@ I learned a lot of stuff related to data science skills. This Bootcamp
 - Essential Python for Data Analyst
 - Dashboard
 
-You can find me on Linkedin
+You can find me on 
+  Linkedin : https://www.linkedin.com/in/jessadakorn-vorathammaporn-97171a270/
+  DataCamp : https://app.datacamp.com/
+  IG       : https://www.instagram.com/punpunpunpunpunpunpunpunp.un/
